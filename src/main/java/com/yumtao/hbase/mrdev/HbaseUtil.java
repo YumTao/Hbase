@@ -37,6 +37,11 @@ public class HbaseUtil {
 
 	public static String FAMILY_COLUMN_VAL_SPLIT = "\001";
 
+	/**
+	 * 1、配置加载。
+	 * 2、 获取连接。
+	 * 3、获取表管理类。
+	 */
 	static {
 		try {
 			config = HBaseConfiguration.create();

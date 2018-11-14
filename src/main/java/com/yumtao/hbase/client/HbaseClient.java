@@ -37,6 +37,12 @@ public class HbaseClient {
 	private Connection connection;
 	private Admin admin;
 
+	/**
+	 * 1、配置获取
+	 * 2、连接获取
+	 * 3、表管理对象获取
+	 * @throws Exception
+	 */
 	@Before
 	public void configInit() throws Exception {
 		config = HBaseConfiguration.create();
@@ -156,6 +162,9 @@ public class HbaseClient {
 		});
 	}
 
+	/**
+	 * 关流
+	 */
 	@After
 	public void closeResource() {
 		try {

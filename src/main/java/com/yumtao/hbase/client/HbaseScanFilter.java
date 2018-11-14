@@ -60,8 +60,10 @@ public class HbaseScanFilter {
 	@Test
 	public void filter() throws Exception {
 		Table table = connection.getTable(TableName.valueOf("jva_dev"));
-
+//		多个过滤器&（与关系）
 //		FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);
+
+//		多个过滤器|（或关系）		
 		FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ONE);
 
 		// ColumnPrefixFilter: 单列名前缀过滤器
