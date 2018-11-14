@@ -60,8 +60,10 @@ public class HbaseClient {
 	public void insertData() throws Exception {
 		Table table = connection.getTable(TableName.valueOf("jva_dev"));
 		Put put = new Put(Bytes.toBytes("eclipse"));
-		put.addColumn(Bytes.toBytes("lib"), Bytes.toBytes("hdfsjar"), Bytes.toBytes("common"));
-		put.addColumn(Bytes.toBytes("maven"), Bytes.toBytes("hdfsmvn"), Bytes.toBytes("mvn_common"));
+		put.addColumn(Bytes.toBytes("lib"), Bytes.toBytes("jar_mr"), Bytes.toBytes("map and reduce"));
+		put.addColumn(Bytes.toBytes("lib"), Bytes.toBytes("jar_hive"), Bytes.toBytes("hive"));
+		put.addColumn(Bytes.toBytes("maven"), Bytes.toBytes("mvn_mr"), Bytes.toBytes("mvn_map and reduce"));
+		put.addColumn(Bytes.toBytes("maven"), Bytes.toBytes("mvn_hive"), Bytes.toBytes("hive"));
 		table.put(put);
 	}
 
@@ -72,15 +74,19 @@ public class HbaseClient {
 		// row key --eclipse
 		List<Put> putGroup = new ArrayList<>();
 		Put put = new Put(Bytes.toBytes("eclipse"));
-		put.addColumn(Bytes.toBytes("lib"), Bytes.toBytes("hdfsjar"), Bytes.toBytes("common1"));
-		put.addColumn(Bytes.toBytes("maven"), Bytes.toBytes("hdfsmvn"), Bytes.toBytes("mvn_common1"));
+		put.addColumn(Bytes.toBytes("lib"), Bytes.toBytes("hdfsjar"), Bytes.toBytes("common2"));
+		put.addColumn(Bytes.toBytes("maven"), Bytes.toBytes("hdfsmvn"), Bytes.toBytes("mvn_common2"));
 		putGroup.add(put);
 
 		// row key --ideaJ
 		Put ideaPut = new Put(Bytes.toBytes("ideaJ"));
-		ideaPut.addColumn(Bytes.toBytes("lib"), Bytes.toBytes("hivejar"), Bytes.toBytes("exec"));
-		ideaPut.addColumn(Bytes.toBytes("maven"), Bytes.toBytes("hivemvn"), Bytes.toBytes("mvn_exec"));
+		ideaPut.addColumn(Bytes.toBytes("lib"), Bytes.toBytes("hdfsjar"), Bytes.toBytes("common1"));
+		ideaPut.addColumn(Bytes.toBytes("maven"), Bytes.toBytes("hivemvn"), Bytes.toBytes("mvn_exec1"));
 		putGroup.add(ideaPut);
+		
+		Put test = new Put(Bytes.toBytes("test"));
+		test.addColumn(Bytes.toBytes("lib"), Bytes.toBytes("test"), Bytes.toBytes("test"));
+		putGroup.add(test);
 		table.put(putGroup);
 	}
 
@@ -88,12 +94,12 @@ public class HbaseClient {
 	public void deleteData() throws Exception {
 		Table table = connection.getTable(TableName.valueOf("jva_dev"));
 //		default delete by row key
-		Delete delete = new Delete(Bytes.toBytes("eclipse"));
+		Delete delete = new Delete(Bytes.toBytes("ideaj"));
 //		delete by column
 //		delete.addColumn(Bytes.toBytes("lib"), Bytes.toBytes("hdfsjar"));
 
 //		delete by columnFamily
-		delete.addFamily(Bytes.toBytes("lib"));
+//		delete.addFamily(Bytes.toBytes("lib"));
 		table.delete(delete);
 	}
 
